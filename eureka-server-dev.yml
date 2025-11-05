@@ -1,0 +1,18 @@
+# Nom de l'application
+spring:
+  application:
+    name: eureka-server
+# Import du Config Server (optionnel, utilise variable CONFIG_SERVER_URL si définie)
+  config:
+    import: "optional:configserver:${CONFIG_SERVER_URL:http://config-server:8888}"
+# Port du serveur (peut être passé via variable d'environnement SERVER_PORT)
+server:
+  port: ${SERVER_PORT:8761}
+
+# Configuration Eureka serveur
+eureka:
+  client:
+    register-with-eureka: false   # Le serveur ne se registre pas lui-même
+    fetch-registry: false          # Ne récupère pas le registre
+  server:
+    enable-self-preservation: false # Désactive la self-preservation (optionnel)
