@@ -1,0 +1,20 @@
+server:
+  port: ${GATEWAY_SERVICE_PORT}
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: client-service
+          uri: lb://client-service
+          predicates:
+            - Path=/clients/**
+          filters:
+            - RewritePath=/clients/(?<segment>.*), /${segment}
+
+        - id: societe-service
+          uri: lb://societe-service
+          predicates:
+            - Path=/societes/**
+          filters:
+            - RewritePath=/societes/(?<segment>.*), /${segment}
