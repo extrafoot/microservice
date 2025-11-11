@@ -8,13 +8,13 @@ spring:
         - id: client-service
           uri: lb://client-service
           predicates:
-            - Path=/clients/**
+            - Path=/client-service/**
           filters:
-            - RewritePath=/clients/(?<segment>.*), /${segment}
+            - RewritePath=/client-service/(?<segment>.*), /${segment}
 
         - id: societe-service
           uri: lb://societe-service
           predicates:
-            - Path=/societes/**
+            - Path=/societe-service/**
           filters:
-            - RewritePath=/societes/(?<segment>.*), /${segment}
+            - RewritePath=/societe-service/(?<segment>.*), /${segment}
