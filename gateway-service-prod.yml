@@ -14,6 +14,7 @@ spring:
             - RewritePath=/client-service/(?<segment>.*), /$\{segment}
             - AddRequestHeader=X-Forwarded-Prefix, /client-service
             - AddRequestHeader=X-Forwarded-Host, localhost:${GATEWAY_SERVICE_PORT}
+            - AddRequestHeader=X-Forwarded-Proto, http   # <-- Important pour Swagger UI derrière proxy
 
         - id: societe-service
           uri: lb://societe-service
@@ -23,3 +24,4 @@ spring:
             - RewritePath=/societe-service/(?<segment>.*), /$\{segment}
             - AddRequestHeader=X-Forwarded-Prefix, /societe-service
             - AddRequestHeader=X-Forwarded-Host, localhost:${GATEWAY_SERVICE_PORT}
+            - AddRequestHeader=X-Forwarded-Proto, http   # <-- Important pour Swagger UI derrière proxy
