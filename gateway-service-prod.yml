@@ -5,12 +5,15 @@ spring:
   cloud:
     gateway:
       routes:
+
         - id: client-service
           uri: lb://client-service
           predicates:
             - Path=/client-service/**
           filters:
             - RewritePath=/client-service/(?<segment>.*), /$\{segment}
+            - AddRequestHeader=X-Forwarded-Prefix, /client-service
+            - AddRequestHeader=X-Forwarded-Host, localhost:${GATEWAY_SERVICE_PORT}
 
         - id: societe-service
           uri: lb://societe-service
@@ -18,3 +21,5 @@ spring:
             - Path=/societe-service/**
           filters:
             - RewritePath=/societe-service/(?<segment>.*), /$\{segment}
+            - AddRequestHeader=X-Forwarded-Prefix, /societe-service
+            - AddRequestHeader=X-Forwarded-Host, localhost:${GATEWAY_SERVICE_PORT}
