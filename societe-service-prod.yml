@@ -10,7 +10,6 @@ spring:
       path: /v3/api-docs
     swagger-ui:
       path: /swagger-ui.html
-      config-url: /societe-service/v3/api-docs/swagger-config
 
   # ----------------------------
   # Configuration de la base PostgreSQL
