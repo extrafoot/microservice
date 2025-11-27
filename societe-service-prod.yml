@@ -5,12 +5,16 @@ spring:
   application:
     name: societe-service
 
+  # ----------------------------
+  # Springdoc / Swagger
+  # ----------------------------
   springdoc:
     api-docs:
       path: /societe-service/v3/api-docs
     swagger-ui:
       path: /swagger-ui/index.html
-      url: /societe-service/v3/api-docs
+      url: /societe-service/v3/api-docs   # <-- URL directe vers le JSON OpenAPI
+    enable-forwarded-prefix: true        # <-- Permet de respecter X-Forwarded-Prefix
 
   # ----------------------------
   # Configuration de la base PostgreSQL
