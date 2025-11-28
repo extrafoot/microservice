@@ -1,24 +1,24 @@
 server:
   port: ${SOCIETE_SERVICE_PORT}
+  forward-headers-strategy: framework   # ← IMPORTANT pour Swagger derrière Gateway
 
 spring:
   application:
     name: societe-service
 
-  # ----------------------------
-  # Springdoc / Swagger
-  # ----------------------------
-  springdoc:
-    api-docs:
-      path: /societe-service/v3/api-docs
-    swagger-ui:
-      path: /swagger-ui/index.html
-      url: /societe-service/v3/api-docs   # <-- URL directe vers le JSON OpenAPI
-    enable-forwarded-prefix: true        # <-- Permet de respecter X-Forwarded-Prefix
+# ----------------------------
+# SPRINGDOC — SWAGGER
+# ----------------------------
+springdoc:
+  api-docs:
+    path: /v3/api-docs     # ← NE PAS mettre /societe-service
+  swagger-ui:
+    path: /swagger-ui/index.html
+    disable-swagger-default-url: true   # ← Facultatif : évite les conflits
 
-  # ----------------------------
-  # Configuration de la base PostgreSQL
-  # ----------------------------
+# ----------------------------
+# DATABASE PostgreSQL
+# ----------------------------
   datasource:
     url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://dbsociete:5432/dbsociete}
     username: ${SPRING_DATASOURCE_USERNAME:postgres}
@@ -34,7 +34,7 @@ spring:
         format_sql: true
 
 # ----------------------------
-# Actuator pour health check
+# ACTUATOR
 # ----------------------------
 management:
   endpoints:
