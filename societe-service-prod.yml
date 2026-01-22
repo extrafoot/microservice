@@ -11,10 +11,10 @@ spring:
 # ----------------------------
 springdoc:
   api-docs:
-    path: /societe-service/v3/api-docs
+    path: /v3/api-docs     # ← NE PAS mettre /societe-service
   swagger-ui:
-    path: /societe-service/swagger-ui.html
-
+    path: /swagger-ui/index.html
+    disable-swagger-default-url: true   # ← Facultatif : évite les conflits
 
 # ----------------------------
 # DATABASE PostgreSQL
