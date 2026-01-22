@@ -11,7 +11,9 @@ spring:
 # ----------------------------
 springdoc:
   api-docs:
-    path: /v3/api-docs     # ← NE PAS mettre /societe-service
+    path: /societe-service/v3/api-docs
+  swagger-ui:
+    path: /societe-service/swagger-ui.html
 
 
 # ----------------------------
