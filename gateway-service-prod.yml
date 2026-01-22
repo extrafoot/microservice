@@ -19,11 +19,9 @@ spring:
         - id: client-service
           uri: lb://client-service
           predicates:
-            - Path=/client-service/**
+            - Path=/client-service/** , /client-servic/v3/api-docs
           filters:
-            - RewritePath=/client-service/(?<segment>.*), /${segment}
-            - AddRequestHeader=X-Forwarded-Prefix, /client-service
-            - AddRequestHeader=X-Forwarded-Host, localhost:${GATEWAY_SERVICE_PORT}
+            - StripPrefix=1
 
         # ================================
         # SOCIETE-SERVICE
