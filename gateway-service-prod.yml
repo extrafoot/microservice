@@ -1,13 +1,23 @@
 server:
   port: ${GATEWAY_SERVICE_PORT}
 springdoc:
+  enable-native-support: true
+  api-docs:
+    enabled: true
   swagger-ui:
+    enabled: true
     path: /swagger-ui.html
+    config-url: /v3/api-docs/swagger-config
     urls:
-      - name: client-service
-        url: /v3/api-docs/client-service
-      - name: societe-service
-        url: /v3/api-docs/societe-service
+      - url: /v3/api-docs
+        name: API Gateway Service
+        primaryName: API Gateway Service
+      - url: /client-service/v3/api-docs
+        name: Client Service
+        primaryName: Client Service
+      - url: /societe-service/v3/api-docs
+        name: Societe Service
+        primaryName: Societe Service
 spring:
   cloud:
     gateway:
@@ -19,7 +29,7 @@ spring:
         - id: client-service
           uri: lb://client-service
           predicates:
-            - Path=/client-service/** , /client-servic/v3/api-docs
+            - Path=/client-service/** , /client-service/v3/api-docs
           filters:
             - StripPrefix=1
 
@@ -29,8 +39,6 @@ spring:
         - id: societe-service
           uri: lb://societe-service
           predicates:
-            - Path=/societe-service/**
+            - Path=/societe-service/** , /societe-service/v3/api-docs
           filters:
-            - RewritePath=/societe-service/(?<segment>.*), /${segment}
-            - AddRequestHeader=X-Forwarded-Prefix, /societe-service
-            - AddRequestHeader=X-Forwarded-Host, localhost:${GATEWAY_SERVICE_PORT}
+            - StripPrefix=1
