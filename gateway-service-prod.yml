@@ -1,13 +1,10 @@
 server:
-  port: ${GATEWAY_SERVICE_PORT}
-
-springdoc:
-  swagger-ui:
-    urls:
-      - name: client-service
-        url: /client-service/v3/api-docs
+  port: ${GATEWAY_SERVICE_PORT:8083}
 
 spring:
+  application:
+    name: gateway-service
+
   cloud:
     gateway:
       routes:
@@ -20,6 +17,24 @@ spring:
           predicates:
             - Path=/client-service/**
           filters:
-            - RewritePath=/client-service/(?<segment>.*), /${segment}
-            - AddRequestHeader=X-Forwarded-Prefix, /client-service
-            - AddRequestHeader=X-Forwarded-Host, localhost:${GATEWAY_SERVICE_PORT}
+            - StripPrefix=1
+
+# ----------------------------
+# Swagger / OpenAPI Gateway
+# ----------------------------
+springdoc:
+  enable-native-support: true
+
+  api-docs:
+    enabled: true
+    path: /v3/api-docs
+
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+    config-url: /v3/api-docs/swagger-config
+    urls:
+      - name: API Gateway
+        url: /v3/api-docs
+      - name: Client Service
+        url: /client-service/v3/api-docs
