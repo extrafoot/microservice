@@ -27,7 +27,7 @@ spring:
         - id: client-service
           uri: lb://client-service
           predicates:
-            - Path=/client-service/**,/client-service/v3/api-docs, /api/proprietaires/** 
+            - Path=/client-service/**
           filters:
             - RewritePath=/client-service/(?<segment>.*), /client-service/${segment}
             - AddRequestHeader=X-Forwarded-Prefix, /client-service
