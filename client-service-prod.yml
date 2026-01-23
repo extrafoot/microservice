@@ -5,12 +5,9 @@ server:
 springdoc:
   api-docs:
     path: /v3/api-docs
-
   swagger-ui:
     path: /swagger-ui.html
-    urls:
-      - name: client-service
-        url: /client-service/client-service/v3/api-docs
+    config-url: /v3/api-docs/swagger-config
 
 spring:
   application:
