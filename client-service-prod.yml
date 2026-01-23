@@ -2,13 +2,16 @@ server:
   port: ${CLIENT_SERVICE_PORT}
   forward-headers-strategy: framework
   
+openapi:
+  service:
+    title: client-service doc # title that you will want to display in the Swagger UI
+    version: 1.0.0
+    url: http://localhost:8080
 springdoc:
   api-docs:
-    enabled: true
+    path: /client-service/v3/api-docs  
   swagger-ui:
-    enabled: false
-  swagger-config:
-    enabled: true
+    path: /client-service/swagger-ui.html        
 
 spring:
   application:
