@@ -22,7 +22,7 @@ openapi:
   service:
     title: client-service doc
     version: 1.0.0
-    url: http://localhost:${CLIENT_SERVICE_PORT:8081}
+    url: http://localhost:${CLIENT_SERVICE_PORT}/client-service
 
 # ----------------------------
 # Base de données PostgreSQL
