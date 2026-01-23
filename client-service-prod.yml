@@ -11,9 +11,9 @@ spring:
 # ----------------------------
 springdoc:
   api-docs:
-    path: /v3/api-docs
+    path: /client-service/v3/api-docs
   swagger-ui:
-    path: /swagger-ui.html
+    path: /client-service/swagger-ui.html
 
 # ----------------------------
 # Configuration OpenAPI (optionnelle)
