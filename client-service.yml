@@ -11,10 +11,11 @@ spring:
 # ----------------------------
 springdoc:
   api-docs:
-    path: /client-service/v3/api-docs
+    enabled: true
   swagger-ui:
-    path: /client-service/swagger-ui.html
-
+    urls:
+      - name: client-service
+        url: /client-service/v3/api-docs
 # ----------------------------
 # Configuration OpenAPI (optionnelle)
 # ----------------------------
@@ -22,7 +23,7 @@ openapi:
   service:
     title: client-service doc
     version: 1.0.0
-    url: http://localhost:${CLIENT_SERVICE_PORT}/client-service
+    url: http://localhost:${CLIENT_SERVICE_PORT}
 
 # ----------------------------
 # Base de données PostgreSQL
