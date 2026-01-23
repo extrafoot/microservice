@@ -1,6 +1,14 @@
 server:
   port: ${GATEWAY_SERVICE_PORT}
 
+springdoc:
+  swagger-ui:
+    urls:
+      - name: client-service
+        url: /client-service/v3/api-docs
+      - name: societe-service
+        url: /societe-service/v3/api-docs
+
 spring:
   cloud:
     gateway:
