@@ -17,7 +17,7 @@ springdoc:
     path: /swagger-ui.html
     urls:
       - name: client-service
-        url: /client-service/v3/api-docs
+        url: /v3/api-docs
 
 # ----------------------------
 # DATABASE PostgreSQL
