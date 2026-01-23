@@ -10,7 +10,7 @@ springdoc:
     path: /swagger-ui.html
     urls:
       - name: client-service
-        url: /client-service/v3/api-docs
+        url: /client-service/client-service/v3/api-docs
 
 spring:
   application:
