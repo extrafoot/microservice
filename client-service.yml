@@ -1,33 +1,25 @@
 server:
   port: ${CLIENT_SERVICE_PORT}
-  forward-headers-strategy: framework   # ← IMPORTANT pour Swagger derrière Gateway
+  
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    config-url: /v3/api-docs/swagger-config
 
 spring:
   application:
     name: client-service
 
 # ----------------------------
-# SPRINGDOC — SWAGGER
-# ----------------------------
-springdoc:
-  api-docs:
-    path: /v3/api-docs
-
-  swagger-ui:
-    path: /swagger-ui.html
-    urls:
-      - name: client-service
-        url: /v3/api-docs
-
-# ----------------------------
-# DATABASE PostgreSQL
+# Configuration de la base PostgreSQL
 # ----------------------------
   datasource:
-    url: ${SPRING_DATASOURCE_URL_CLIENT:jdbc:postgresql://dbsclient:5432/dbclient}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://dbclient:5432/dbclient}
     username: ${SPRING_DATASOURCE_USERNAME:postgres}
     password: ${SPRING_DATASOURCE_PASSWORD:postgres}
     driver-class-name: org.postgresql.Driver
-
   jpa:
     hibernate:
       ddl-auto: update
@@ -37,7 +29,7 @@ springdoc:
         format_sql: true
 
 # ----------------------------
-# ACTUATOR
+# Actuator pour health check
 # ----------------------------
 management:
   endpoints:
