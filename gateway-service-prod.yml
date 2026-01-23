@@ -7,9 +7,6 @@ springdoc:
     urls:
       - name: client-service
         url: /client-service/v3/api-docs
-      - name: societe-service
-        url: /societe-service/v3/api-docs
-
 spring:
   cloud:
     gateway:
@@ -25,16 +22,4 @@ spring:
           filters:
             - RewritePath=/client-service/(?<segment>.*), /${segment}
             - AddRequestHeader=X-Forwarded-Prefix, /client-service
-            - AddRequestHeader=X-Forwarded-Host, localhost:${GATEWAY_SERVICE_PORT}
-
-        # ================================
-        # SOCIETE-SERVICE
-        # ================================
-        - id: societe-service
-          uri: lb://societe-service
-          predicates:
-            - Path=/societe-service/**
-          filters:
-            - RewritePath=/societe-service/(?<segment>.*), /${segment}
-            - AddRequestHeader=X-Forwarded-Prefix, /societe-service
             - AddRequestHeader=X-Forwarded-Host, localhost:${GATEWAY_SERVICE_PORT}
