@@ -1,5 +1,5 @@
 server:
-  port: ${CLIENT_SERVICE_PORT}
+  port: ${CLIENT_SERVICE_PORT:8081}
   forward-headers-strategy: framework
 
 spring:
@@ -22,7 +22,7 @@ openapi:
   service:
     title: client-service doc
     version: 1.0.0
-    url: http://localhost:${CLIENT_SERVICE_PORT}
+    url: http://localhost:${CLIENT_SERVICE_PORT:8081}
 
 # ----------------------------
 # Base de données PostgreSQL
