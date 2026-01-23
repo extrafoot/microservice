@@ -1,31 +1,39 @@
 server:
   port: ${CLIENT_SERVICE_PORT}
   forward-headers-strategy: framework
-  
-openapi:
-  service:
-    title: client-service doc # title that you will want to display in the Swagger UI
-    version: 1.0.0
-    url: http://localhost:${CLIENT_SERVICE_PORT}
-    
-springdoc:
-  api-docs:
-    path: /v3/api-docs
-  swagger-ui:
-    path: /swagger-ui.html 
-    
+
 spring:
   application:
     name: client-service
 
 # ----------------------------
-# Configuration de la base PostgreSQL
+# OpenAPI / Swagger
 # ----------------------------
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+
+# ----------------------------
+# Configuration OpenAPI (optionnelle)
+# ----------------------------
+openapi:
+  service:
+    title: client-service doc
+    version: 1.0.0
+    url: http://localhost:${CLIENT_SERVICE_PORT}
+
+# ----------------------------
+# Base de données PostgreSQL
+# ----------------------------
+spring:
   datasource:
     url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://dbclient:5432/dbclient}
     username: ${SPRING_DATASOURCE_USERNAME:postgres}
     password: ${SPRING_DATASOURCE_PASSWORD:postgres}
     driver-class-name: org.postgresql.Driver
+
   jpa:
     hibernate:
       ddl-auto: update
@@ -35,7 +43,7 @@ spring:
         format_sql: true
 
 # ----------------------------
-# Actuator pour health check
+# Actuator
 # ----------------------------
 management:
   endpoints:
