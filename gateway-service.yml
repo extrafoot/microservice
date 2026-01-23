@@ -29,6 +29,6 @@ spring:
           predicates:
             - Path=/client-service/**,/client-service/v3/api-docs, /api/proprietaires/** 
           filters:
-            - RewritePath=/client-service/(?<segment>.*), /${segment}
+            - RewritePath=/client-service/(?<segment>.*), /client-service/${segment}
             - AddRequestHeader=X-Forwarded-Prefix, /client-service
             - AddRequestHeader=X-Forwarded-Host, localhost:${GATEWAY_SERVICE_PORT}
