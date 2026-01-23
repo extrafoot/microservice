@@ -1,35 +1,29 @@
 server:
-  port: ${CLIENT_SERVICE_PORT:8081}
-  forward-headers-strategy: framework
+  port: ${CLIENT_SERVICE_PORT}
+  forward-headers-strategy: framework   # ← IMPORTANT pour Swagger derrière Gateway
 
 spring:
   application:
     name: client-service
 
 # ----------------------------
-# OpenAPI / Swagger
+# SPRINGDOC — SWAGGER
 # ----------------------------
 springdoc:
   api-docs:
     path: /v3/api-docs
+
   swagger-ui:
     path: /swagger-ui.html
+    urls:
+      - name: client-service
+        url: /client-service/v3/api-docs
 
 # ----------------------------
-# Configuration OpenAPI (optionnelle)
+# DATABASE PostgreSQL
 # ----------------------------
-openapi:
-  service:
-    title: client-service doc
-    version: 1.0.0
-    url: http://localhost:${CLIENT_SERVICE_PORT:8081}
-
-# ----------------------------
-# Base de données PostgreSQL
-# ----------------------------
-spring:
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://dbclient:5432/dbclient}
+    url: ${SPRING_DATASOURCE_URL_SOCIETE:jdbc:postgresql://dbsclient:5433/dbclient}
     username: ${SPRING_DATASOURCE_USERNAME:postgres}
     password: ${SPRING_DATASOURCE_PASSWORD:postgres}
     driver-class-name: org.postgresql.Driver
@@ -43,7 +37,7 @@ spring:
         format_sql: true
 
 # ----------------------------
-# Actuator
+# ACTUATOR
 # ----------------------------
 management:
   endpoints:
