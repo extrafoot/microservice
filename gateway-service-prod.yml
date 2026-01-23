@@ -2,7 +2,10 @@ server:
   port: ${GATEWAY_SERVICE_PORT}
 
 springdoc:
+  api-docs:
+    enabled: true
   swagger-ui:
+    enabled: true
     urls:
       - name: client-service
         url: /client-service/v3/api-docs
