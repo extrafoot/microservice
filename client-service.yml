@@ -7,11 +7,13 @@ openapi:
     title: client-service doc # title that you will want to display in the Swagger UI
     version: 1.0.0
     url: http://localhost:${CLIENT_SERVICE_PORT}
+    
 springdoc:
   api-docs:
-    path: /client-service/v3/api-docs  
+    path: /v3/api-docs
   swagger-ui:
-    path: /client-service/swagger-ui.html   
+    path: /swagger-ui.html 
+    
 spring:
   application:
     name: client-service
