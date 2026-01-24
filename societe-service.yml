@@ -20,7 +20,7 @@ springdoc:
 # DATABASE PostgreSQL
 # ----------------------------
   datasource:
-    url: ${SPRING_DATASOURCE_URL_SOCIETE:jdbc:postgresql://dbsociete:5433/dbsociete}
+    url: ${SPRING_DATASOURCE_URL_SOCIETE:jdbc:postgresql://dbsociete:5432/dbsociete}
     username: ${SPRING_DATASOURCE_USERNAME:postgres}
     password: ${SPRING_DATASOURCE_PASSWORD:postgres}
     driver-class-name: org.postgresql.Driver
