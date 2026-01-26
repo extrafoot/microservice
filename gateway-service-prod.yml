@@ -16,8 +16,14 @@ spring:
           uri: lb://client-service
           predicates:
             - Path=/client-service/**
-          filters:
-            - StripPrefix=1
+
+        # ================================
+        # SOCIETE-SERVICE
+        # ================================
+        - id: societe-service
+          uri: lb://societe-service
+          predicates:
+            - Path=/societe-service/**
 
 # ----------------------------
 # Swagger / OpenAPI Gateway
@@ -38,3 +44,20 @@ springdoc:
         url: /v3/api-docs
       - name: Client Service
         url: /client-service/v3/api-docs
+      - name: Societe Service
+        url: /societe-service/v3/api-docs
+
+  # Nécessaire pour Swagger derrière Gateway
+  forward-headers-strategy: framework
+
+# ----------------------------
+# Actuator / Health
+# ----------------------------
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  health:
+    db:
+      enabled: false   # Gateway n'a pas de DB
