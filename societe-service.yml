@@ -1,5 +1,7 @@
 server:
   port: ${SOCIETE_SERVICE_PORT}
+  servlet:
+    context-path: /societe-service
 
 spring:
   application:
