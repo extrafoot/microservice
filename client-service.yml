@@ -1,24 +1,13 @@
 server:
   port: ${CLIENT_SERVICE_PORT}
-  
-springdoc:
-  api-docs:
-    path: /v3/api-docs
-  swagger-ui:
-    path: /swagger-ui.html
-    config-url: /v3/api-docs/swagger-config
 
 spring:
   application:
     name: client-service
-
-# ----------------------------
-# Configuration de la base PostgreSQL
-# ----------------------------
   datasource:
-    url: ${SPRING_DATASOURCE_URL_CLIENT:jdbc:postgresql://dbclient:5432/dbclient}
-    username: ${SPRING_DATASOURCE_USERNAME:postgres}
-    password: ${SPRING_DATASOURCE_PASSWORD:postgres}
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -28,9 +17,16 @@ spring:
       hibernate:
         format_sql: true
 
-# ----------------------------
-# Actuator pour health check
-# ----------------------------
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    urls:
+      - name: client-service
+        url: /v3/api-docs
+  forward-headers-strategy: framework
+
 management:
   endpoints:
     web:
