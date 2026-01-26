@@ -1,7 +1,5 @@
 server:
   port: ${CLIENT_SERVICE_PORT}
-  servlet:
-    context-path: /client-service
 
 spring:
   application:
