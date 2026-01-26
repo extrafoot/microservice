@@ -1,33 +1,14 @@
 server:
   port: ${SOCIETE_SERVICE_PORT}
-  forward-headers-strategy: framework   # ← IMPORTANT pour Swagger derrière Gateway
 
 spring:
   application:
     name: societe-service
-
-# ----------------------------
-# SPRINGDOC — SWAGGER
-# ----------------------------
-springdoc:
-  api-docs:
-    path: /v3/api-docs
-
-  swagger-ui:
-    path: /swagger-ui.html
-    urls:
-      - name: societe-service
-        url: /societe-service/v3/api-docs
-
-# ----------------------------
-# DATABASE PostgreSQL
-# ----------------------------
   datasource:
-    url: ${SPRING_DATASOURCE_URL_SOCIETE:jdbc:postgresql://dbsociete:5433/dbsociete}
-    username: ${SPRING_DATASOURCE_USERNAME:postgres}
-    password: ${SPRING_DATASOURCE_PASSWORD:postgres}
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
     driver-class-name: org.postgresql.Driver
-
   jpa:
     hibernate:
       ddl-auto: update
@@ -36,9 +17,16 @@ springdoc:
       hibernate:
         format_sql: true
 
-# ----------------------------
-# ACTUATOR
-# ----------------------------
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    urls:
+      - name: societe-service
+        url: /societe-service/v3/api-docs
+  forward-headers-strategy: framework
+
 management:
   endpoints:
     web:
