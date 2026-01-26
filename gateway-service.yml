@@ -30,9 +30,11 @@ spring:
         filters:
         - RewritePath=/v3/api-docs/(?<path>.*), /${path}/v3/api-docs
 springdoc:
+  api-docs:
+    path: /v3/api-docs
   swagger-ui:
+    path: /swagger-ui.html
     urls:
-      - name: client-service
-        url: /v3/api-docs/client-service
       - name: societe-service
-        url: /v3/api-docs/societe-service
+        url: /v3/api-docs
+  forward-headers-strategy: framework
