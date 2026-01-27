@@ -21,12 +21,7 @@ spring:
 springdoc:
   api-docs:
     path: /v3/api-docs
-  swagger-ui:
-    path: /swagger-ui.html
-    urls:
-      - name: societe-service
-        url: /v3/api-docs
-  forward-headers-strategy: framework
+
 
 management:
   endpoints:
