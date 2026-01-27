@@ -47,10 +47,14 @@ spring:
 # Springdoc Swagger UI centralisé
 springdoc:
   api-docs:
+    enabled: true
     path: /v3/api-docs
   swagger-ui:
-    path: /swagger-ui.html
+    enabled: true
+    config-url: /societe-service/v3/api-docs/swagger-config
     urls:
+      - name: gateway-service
+        url: /v3/api-docs
       - name: societe-service
         url: /societe-service/v3/api-docs
       - name: client-service
