@@ -1,41 +1,34 @@
 server:
   port: ${GATEWAY_SERVICE_PORT}
   forward-headers-strategy: framework
+  
 spring:
-  output:
-    ansi:
-      enabled: always
   cloud:
     gateway:
-      discovery:
-        locator:
-          enabled: true
       routes:
-      - id: client-service
-        uri: lb://client-service
-        predicates:
-        - Path=/client-service/**
-        filters:
-        - RewritePath=/client-service/(?<path>.*), /${path}
-      - id: societe-service
-        uri: lb://societe-service
-        predicates:
-        - Path=/societe-service/**
-        filters:
-        - RewritePath=/societe-service/(?<path>.*), /${path}
-      - id: openapi
-        uri: http://localhost:${GATEWAY_SERVICE_PORT}
-        predicates:
-        - Path=/v3/api-docs/**
-        filters:
-        - RewritePath=/v3/api-docs/(?<path>.*), /${path}/v3/api-docs
-springdoc:
-  api-docs:
-    path: /v3/api-docs
-  swagger-ui:
-    path: /swagger-ui.html
-    urls:
-      - name: societe-service
-        url: /societe-service/v3/api-docs
-      - name: client-service
-        url: /client-service/v3/api-docs
+        - id: societe-service
+          uri: lb://societe-service
+          predicates:
+            - Path=/societe-service/**
+          filters:
+            - RewritePath=/societe-service/(?<path>.*), /${path}
+
+        - id: client-service
+          uri: lb://client-service
+          predicates:
+            - Path=/client-service/**
+          filters:
+            - RewritePath=/client-service/(?<path>.*), /${path}
+
+        # OpenAPI / Swagger route
+        - id: openapi-societe
+          uri: lb://societe-service
+          predicates:
+            - Path=/societe-service/v3/api-docs
+          filters: []
+
+        - id: openapi-client
+          uri: lb://client-service
+          predicates:
+            - Path=/client-service/v3/api-docs
+          filters: []
