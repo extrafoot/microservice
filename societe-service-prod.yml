@@ -1,6 +1,6 @@
 server:
   port: ${SOCIETE_SERVICE_PORT}
-    
+
 spring:
   application:
     name: societe-service
@@ -17,15 +17,11 @@ spring:
       hibernate:
         format_sql: true
 
-springdoc:
-  api-docs:
-    path: /v3/api-docs
   swagger-ui:
-    path: /swagger-ui.html
-    urls:
-      - name: societe-service
-        url: /v3/api-docs
-  forward-headers-strategy: framework
+    enabled: false   # Swagger UI seulement dans le gateway
+  servers:
+    - url: http://localhost:8083/societe-service
+      description: API Societe via Gateway
 
 management:
   endpoints:
