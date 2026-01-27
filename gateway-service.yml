@@ -1,11 +1,21 @@
 server:
-  port: ${GATEWAY_SERVICE_PORT}
+  port: ${GATEWAY_SERVICE_PORT:8083}  # Port du gateway par défaut 8083
   forward-headers-strategy: framework
-  
+
 spring:
+  application:
+    name: gateway-service
+  output:
+    ansi:
+      enabled: always
   cloud:
     gateway:
+      discovery:
+        locator:
+          enabled: true
       routes:
+
+        # Route Societe Service
         - id: societe-service
           uri: lb://societe-service
           predicates:
@@ -13,6 +23,7 @@ spring:
           filters:
             - RewritePath=/societe-service/(?<path>.*), /${path}
 
+        # Route Client Service
         - id: client-service
           uri: lb://client-service
           predicates:
@@ -20,7 +31,7 @@ spring:
           filters:
             - RewritePath=/client-service/(?<path>.*), /${path}
 
-        # OpenAPI / Swagger route
+        # Routes OpenAPI / Swagger JSON via Gateway
         - id: openapi-societe
           uri: lb://societe-service
           predicates:
@@ -32,3 +43,21 @@ spring:
           predicates:
             - Path=/client-service/v3/api-docs
           filters: []
+
+# Springdoc Swagger UI centralisé
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    urls:
+      - name: societe-service
+        url: /societe-service/v3/api-docs
+      - name: client-service
+        url: /client-service/v3/api-docs
+
+# Logging utile pour debug Gateway
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    reactor.netty.http.client: DEBUG
