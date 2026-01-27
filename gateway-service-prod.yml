@@ -36,5 +36,6 @@ springdoc:
     path: /swagger-ui.html
     urls:
       - name: societe-service
-        url: /v3/api-docs
-  forward-headers-strategy: framework
+        url: /societe-service/v3/api-docs
+      - name: client-service
+        url: /client-service/v3/api-docs
