@@ -17,6 +17,9 @@ spring:
       hibernate:
         format_sql: true
 
+springdoc:
+  api-docs:
+    path: /v3/api-docs
   swagger-ui:
     enabled: false   # Swagger UI seulement dans le gateway
   servers:
