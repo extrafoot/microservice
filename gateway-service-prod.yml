@@ -46,13 +46,16 @@ spring:
 
 # Springdoc Swagger UI centralisé
 springdoc:
+  api-docs:
+    path: /v3/api-docs
   swagger-ui:
     path: /swagger-ui.html
     urls:
-      - name: societe-service
-        url: /societe-service/v3/api-docs
       - name: client-service
         url: /client-service/v3/api-docs
+      - name: societe-service
+        url: /societe-service/v3/api-docs        
+  forward-headers-strategy: framework
 
 # Logging utile pour debug Gateway
 logging:
