@@ -68,6 +68,11 @@ springdoc:
         url: /client-service/v3/api-docs
       - name: societe-service
         url: /societe-service/v3/api-docs
+   servers:
+    - url: https://api.mondomaine.com
+      description: Gateway public
+    - url: http://localhost:8080
+      description: Environnement local       
 
   forward-headers-strategy: framework
 
