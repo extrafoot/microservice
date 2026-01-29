@@ -19,8 +19,8 @@ spring:
         format_sql: true
 
 springdoc:
-  server:
-    url: http://localhost:8083/societe-service
+  servers:
+    - url: http://localhost:8083/societe-service
   swagger-ui:
     enabled: false
 
