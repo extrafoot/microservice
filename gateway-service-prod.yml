@@ -1,64 +1,80 @@
 server:
-  port: ${GATEWAY_SERVICE_PORT:8083}  # Port du gateway par défaut 8083
+  port: ${GATEWAY_SERVICE_PORT:8083}
   forward-headers-strategy: framework
 
 spring:
   application:
     name: gateway-service
+
   output:
     ansi:
       enabled: always
+
   cloud:
     gateway:
       discovery:
         locator:
           enabled: true
+          lower-case-service-id: true
+
       routes:
 
-        # Route Societe Service
+        # ==========================
+        # SOCIETE SERVICE
+        # ==========================
         - id: societe-service
           uri: lb://societe-service
           predicates:
             - Path=/societe-service/**
           filters:
-            - RewritePath=/societe-service/(?<path>.*), /${path}
+            - StripPrefix=1
 
-        # Route Client Service
+        # ==========================
+        # CLIENT SERVICE
+        # ==========================
         - id: client-service
           uri: lb://client-service
           predicates:
             - Path=/client-service/**
           filters:
-            - RewritePath=/client-service/(?<path>.*), /${path}
+            - StripPrefix=1
 
-        # Routes OpenAPI / Swagger JSON via Gateway
+        # ==========================
+        # OPENAPI (Swagger JSON)
+        # ==========================
         - id: openapi-societe
           uri: lb://societe-service
           predicates:
             - Path=/societe-service/v3/api-docs
-          filters: []
 
         - id: openapi-client
           uri: lb://client-service
           predicates:
             - Path=/client-service/v3/api-docs
-          filters: []
 
-# Springdoc Swagger UI centralisé
+# ==========================
+# SPRINGDOC - SWAGGER UI CENTRALISÉ
+# ==========================
 springdoc:
   api-docs:
+    enabled: true
     path: /v3/api-docs
+
   swagger-ui:
+    enabled: true
     path: /swagger-ui.html
     urls:
       - name: client-service
         url: /client-service/v3/api-docs
       - name: societe-service
-        url: /societe-service/v3/api-docs        
+        url: /societe-service/v3/api-docs
+
   forward-headers-strategy: framework
 
-# Logging utile pour debug Gateway
+# ==========================
+# LOGGING (DEBUG GATEWAY)
+# ==========================
 logging:
   level:
-    org.springframework.cloud.gateway: DEBUG
-    reactor.netty.http.client: DEBUG
+    org.springframework.cloud.gateway: INFO
+    reactor.netty.http.client: INFO
