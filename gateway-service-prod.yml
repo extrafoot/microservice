@@ -46,8 +46,6 @@ spring:
 
 # Springdoc Swagger UI centralisé
 springdoc:
-  api-docs:
-    path: /v3/api-docs
   swagger-ui:
     path: /swagger-ui.html
     urls:
