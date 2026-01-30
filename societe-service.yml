@@ -1,7 +1,7 @@
 server:
   port: ${SOCIETE_SERVICE_PORT}
   forward-headers-strategy: framework
-  
+
 spring:
   application:
     name: societe-service
@@ -21,13 +21,16 @@ spring:
 springdoc:
   api-docs:
     path: /v3/api-docs
+    server:
+      url: http://localhost:8083/societe-service
+      description: Generated server url
   swagger-ui:
     path: /swagger-ui.html
     urls:
       - name: societe-service
         url: /v3/api-docs
   forward-headers-strategy: framework
-  
+
 management:
   endpoints:
     web:
