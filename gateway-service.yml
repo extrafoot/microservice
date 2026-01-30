@@ -1,10 +1,18 @@
 server:
-  port: ${GATEWAY_SERVICE_PORT}
+  port: ${GATEWAY_SERVICE_PORT:8080}
   forward-headers-strategy: framework
-  
+
 spring:
+  application:
+    name: gateway-service
+
   cloud:
     gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+
       routes:
 
         # ================================
@@ -17,7 +25,6 @@ spring:
           filters:
             - RewritePath=/client-service/(?<segment>.*), /${segment}
             - AddRequestHeader=X-Forwarded-Prefix, /client-service
-            - AddRequestHeader=X-Forwarded-Host, localhost:${GATEWAY_SERVICE_PORT}
 
         # ================================
         # SOCIETE-SERVICE
@@ -29,15 +36,17 @@ spring:
           filters:
             - RewritePath=/societe-service/(?<segment>.*), /${segment}
             - AddRequestHeader=X-Forwarded-Prefix, /societe-service
-            - AddRequestHeader=X-Forwarded-Host, localhost:${GATEWAY_SERVICE_PORT}
+
 # ==========================
 # SPRINGDOC - SWAGGER UI CENTRALISÉ
 # ==========================
 springdoc:
   api-docs:
+    enabled: true
     path: /v3/api-docs
 
   swagger-ui:
+    enabled: true
     path: /swagger-ui.html
     urls:
       - name: client-service
@@ -46,7 +55,7 @@ springdoc:
         url: /societe-service/v3/api-docs
 
 # ==========================
-# LOGGING (DEBUG GATEWAY)
+# LOGGING
 # ==========================
 logging:
   level:
