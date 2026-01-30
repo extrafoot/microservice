@@ -1,4 +1,3 @@
-
 server:
   port: ${SOCIETE_SERVICE_PORT}
   forward-headers-strategy: framework
