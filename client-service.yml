@@ -22,7 +22,7 @@ springdoc:
   api-docs:
     path: /v3/api-docs
     server:
-      url: http://localhost:8080/client-service
+      url: http://localhost:8083/client-service
       description: Generated server url
   swagger-ui:
     path: /swagger-ui.html
