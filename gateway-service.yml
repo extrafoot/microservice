@@ -53,11 +53,3 @@ springdoc:
         url: /client-service/v3/api-docs
       - name: societe-service
         url: /societe-service/v3/api-docs
-
-# ==========================
-# LOGGING
-# ==========================
-logging:
-  level:
-    org.springframework.cloud.gateway: INFO
-    reactor.netty.http.client: INFO
