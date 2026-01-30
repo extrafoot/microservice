@@ -14,22 +14,15 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
 
 springdoc:
   api-docs:
     path: /v3/api-docs
-    server:
-      url: http://localhost:8083/client-service
-      description: Generated server url
   swagger-ui:
     path: /swagger-ui.html
     urls:
       - name: client-service
         url: /v3/api-docs
-  forward-headers-strategy: framework
 
 management:
   endpoints:
