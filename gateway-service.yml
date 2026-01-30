@@ -1,57 +1,36 @@
 server:
-  port: ${GATEWAY_SERVICE_PORT:8083}
+  port: ${GATEWAY_SERVICE_PORT}
   forward-headers-strategy: framework
-
+  
 spring:
-  application:
-    name: gateway-service
-
-  output:
-    ansi:
-      enabled: always
-
   cloud:
     gateway:
-      discovery:
-        locator:
-          enabled: true
-          lower-case-service-id: true
-
       routes:
 
-        # ==========================
-        # SOCIETE SERVICE
-        # ==========================
-        - id: societe-service
-          uri: lb://societe-service
-          predicates:
-            - Path=/societe-service/**
-          filters:
-            - StripPrefix=1
-
-        # ==========================
-        # CLIENT SERVICE
-        # ==========================
+        # ================================
+        # CLIENT-SERVICE
+        # ================================
         - id: client-service
           uri: lb://client-service
           predicates:
             - Path=/client-service/**
           filters:
-            - StripPrefix=1
+            - RewritePath=/client-service/(?<segment>.*), /${segment}
+            - AddRequestHeader=X-Forwarded-Prefix, /client-service
+            - AddRequestHeader=X-Forwarded-Host, localhost:${GATEWAY_SERVICE_PORT}
 
-        # ==========================
-        # OPENAPI (Swagger JSON)
-        # ==========================
-        - id: openapi-societe
+        # ================================
+        # SOCIETE-SERVICE
+        # ================================
+        - id: societe-service
           uri: lb://societe-service
           predicates:
-            - Path=/societe-service/v3/api-docs
-
-        - id: openapi-client
-          uri: lb://client-service
-          predicates:
-            - Path=/client-service/v3/api-docs
-
+            - Path=/societe-service/**
+          filters:
+            - RewritePath=/societe-service/(?<segment>.*), /${segment}
+            - AddRequestHeader=X-Forwarded-Prefix, /societe-service
+            - AddRequestHeader=X-Forwarded-Host, localhost:${GATEWAY_SERVICE_PORT}
+			
 # ==========================
 # SPRINGDOC - SWAGGER UI CENTRALISÉ
 # ==========================
@@ -68,14 +47,6 @@ springdoc:
         url: /client-service/v3/api-docs
       - name: societe-service
         url: /societe-service/v3/api-docs
-  servers:
-    - url: https://api.mondomaine.com
-      description: Gateway public
-    - url: http://localhost:8080
-      description: Environnement local
-     
-
-  forward-headers-strategy: framework
 
 # ==========================
 # LOGGING (DEBUG GATEWAY)
